@@ -19,6 +19,13 @@ from pipecat.services.deepgram.tts import DeepgramTTSService, DeepgramTTSSetting
 from pipecat.services.groq.llm import GroqLLMService, GroqLLMSettings
 from pipecat.transports.base_transport import TransportParams
 
+from pipecat.audio.turn.smart_turn.base_smart_turn import SmartTurnParams
+from pipecat.audio.turn.smart_turn.local_smart_turn_v3 import LocalSmartTurnAnalyzerV3
+from pipecat.audio.vad.vad_analyzer import VADParams
+from pipecat.turns.user_stop import TurnAnalyzerUserTurnStopStrategy
+from pipecat.turns.user_turn_strategies import UserTurnStrategies
+
+
 from interview import InterviewController
 from prompts import SYSTEM_PROMPT
 
@@ -54,8 +61,18 @@ async def bot(runner_args: RunnerArguments):
     context = LLMContext()
     user_agg, assistant_agg = LLMContextAggregatorPair(
         context,
-        user_params=LLMUserAggregatorParams(vad_analyzer=SileroVADAnalyzer()),
-    )
+         user_params=LLMUserAggregatorParams(
+            vad_analyzer=SileroVADAnalyzer(params=VADParams(stop_secs=0.2)),
+            user_turn_strategies=UserTurnStrategies(
+                stop=[
+                    TurnAnalyzerUserTurnStopStrategy(
+                        turn_analyzer=LocalSmartTurnAnalyzerV3(
+                            params=SmartTurnParams(stop_secs=2.0)
+                        )
+                    )
+                ]
+            ),
+        ),)
 
     pipeline = Pipeline([
         transport.input(),
