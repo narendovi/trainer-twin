@@ -6,7 +6,6 @@ from loguru import logger
 from pipecat.audio.vad.silero import SileroVADAnalyzer
 from pipecat.frames.frames import LLMRunFrame
 from pipecat.pipeline.pipeline import Pipeline
-from pipecat.pipeline.runner import PipelineRunner
 from pipecat.pipeline.task import PipelineParams, PipelineTask
 from pipecat.processors.aggregators.llm_context import LLMContext
 from pipecat.processors.aggregators.llm_response_universal import (
@@ -20,9 +19,10 @@ from pipecat.services.deepgram.tts import DeepgramTTSService, DeepgramTTSSetting
 from pipecat.services.groq.llm import GroqLLMService, GroqLLMSettings
 from pipecat.transports.base_transport import TransportParams
 
-load_dotenv(override=True)
+from interview import InterviewController
+from prompts import SYSTEM_PROMPT
 
-SYSTEM_PROMPT = "You are a friendly voice assistant. Keep replies to one or two short sentences. No lists or markdown."
+load_dotenv(override=True)
 
 transport_params = {
     "webrtc": lambda: TransportParams(audio_in_enabled=True, audio_out_enabled=True),
@@ -39,11 +39,10 @@ async def bot(runner_args: RunnerArguments):
     llm = GroqLLMService(
         api_key=os.environ["GROQ_API_KEY"],
         settings=GroqLLMSettings(
-            model="openai/gpt-oss-20b",
-            reasoning_effort="low",
+            model="llama-3.3-70b-versatile",
             system_instruction=SYSTEM_PROMPT,
             temperature=0.5,
-            max_tokens=300,
+            max_tokens=150,
         ),
     )
     tts = DeepgramTTSService(
@@ -61,6 +60,7 @@ async def bot(runner_args: RunnerArguments):
         transport.input(),
         stt,
         user_agg,
+        InterviewController(),
         llm,
         tts,
         transport.output(),
@@ -72,7 +72,7 @@ async def bot(runner_args: RunnerArguments):
     @transport.event_handler("on_client_connected")
     async def on_connected(transport, client):
         logger.info("Client connected")
-        context.add_message({"role": "user", "content": "Say hello and ask how I'm doing."})
+        context.add_message({"role": "user", "content": "Hi, I'm ready to start."})
         await task.queue_frames([LLMRunFrame()])
 
     @transport.event_handler("on_client_disconnected")
@@ -80,6 +80,7 @@ async def bot(runner_args: RunnerArguments):
         logger.info("Client disconnected")
         await task.cancel()
 
+    from pipecat.pipeline.runner import PipelineRunner
     await PipelineRunner(handle_sigint=runner_args.handle_sigint).run(task)
 
 
