@@ -39,10 +39,11 @@ async def bot(runner_args: RunnerArguments):
     llm = GroqLLMService(
         api_key=os.environ["GROQ_API_KEY"],
         settings=GroqLLMSettings(
-            model="llama-3.3-70b-versatile",
+            model="qwen/qwen3.8-27b",
+            reasoning_effort="none",
             system_instruction=SYSTEM_PROMPT,
             temperature=0.5,
-            max_tokens=150,
+            max_tokens=300,
         ),
     )
     tts = DeepgramTTSService(

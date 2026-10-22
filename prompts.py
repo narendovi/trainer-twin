@@ -1,4 +1,4 @@
-"""All prompts used by the interview coach. PROMPTS.md quotes these verbatim."""
+"""All prompts used by the interview coach."""
 
 QUESTIONS = [
     "Tell me about a project you're proud of.",
