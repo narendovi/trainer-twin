@@ -45,7 +45,13 @@ FOLLOW_UP = (
     "something they mentioned, such as a number, a decision or a trade-off. "
     "If the answer was vague, very short or had no example, give a gentle nudge instead, "
     "asking for one concrete example. "
+    "Your reply must end with exactly one question, ending in a question mark. "
     "Do not ask the next main question yet."
+)
+
+REASK = (
+    "The candidate may not have heard main question {q} of 4. Say in a few words that you will "
+    "repeat it, then ask it again, word for word: \"{question}\""
 )
 
 NEXT_QUESTION = (
