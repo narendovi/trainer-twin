@@ -38,9 +38,20 @@ def directive_for(user_turns: int) -> str:
 
 
 def count_user_turns(messages) -> int:
-    """Number of real candidate turns in the history (the first 'ready' message is turn 0)."""
-    users = sum(1 for m in messages if isinstance(m, dict) and m.get("role") == "user")
-    return max(0, users - 1)
+    """How many times the candidate has spoken, not counting the first 'ready' message.
+
+    Consecutive user messages are ONE turn: a pause in the middle of an answer can split
+    it into two messages, and that must not move the interview forward.
+    """
+    turns = 0
+    prev_role = None
+    for m in messages:
+        role = m.get("role") if isinstance(m, dict) else None
+        if role == "user" and prev_role != "user":
+            turns += 1
+        if role in ("user", "assistant"):
+            prev_role = role
+    return max(0, turns - 1)
 
 
 class InterviewController(FrameProcessor):
@@ -53,7 +64,7 @@ class InterviewController(FrameProcessor):
             messages = list(frame.context.messages)
             turns = count_user_turns(messages)
             directive = directive_for(turns)
-            messages.append({"role": "system", "content": directive})
+            messages.append({"role": "user", "content": "[DIRECTIVE] " + directive})
             frame = LLMContextFrame(
                 context=LLMContext(messages=messages),
                 speculation=frame.speculation,
