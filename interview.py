@@ -69,6 +69,24 @@ def plan(state: InterviewState) -> str:
     return prompts.WRAP_UP if state.feedback_done else prompts.FEEDBACK
 
 
+REPEAT_WORDS = re.compile(
+    r"\b(repeat|say that again|say it again|come again|once more|pardon|"
+    r"(didn't|did not|couldn't|could not) (catch|hear|get)|what was the question|rephrase)\b"
+)
+MAX_REPEAT_REQUEST_WORDS = 12  # a long answer that merely contains 'repeat' is still an answer
+
+
+def is_repeat_request(messages) -> bool:
+    """True if the candidate's latest words are a short request to repeat or clarify."""
+    parts = []
+    for m in reversed(messages):
+        if not isinstance(m, dict) or m.get("role") != "user":
+            break
+        parts.append(m.get("content") if isinstance(m.get("content"), str) else "")
+    heard = " ".join(reversed(parts)).lower().replace("\u2019", "'")
+    return len(heard.split()) <= MAX_REPEAT_REQUEST_WORDS and bool(REPEAT_WORDS.search(heard))
+
+
 def attach_state(assistant_agg) -> InterviewState:
     """Create the state and keep it updated from the assistant aggregator's turn events."""
     state = InterviewState()
@@ -92,7 +110,8 @@ class InterviewController(FrameProcessor):
 
         if isinstance(frame, LLMContextFrame):
             messages = list(frame.context.messages)
-            messages.append({"role": "user", "content": "[DIRECTIVE] " + plan(self._state)})
+            directive = prompts.REPEAT if is_repeat_request(messages) else plan(self._state)
+            messages.append({"role": "user", "content": "[DIRECTIVE] " + directive})
             frame = LLMContextFrame(
                 context=LLMContext(messages=messages),
                 speculation=frame.speculation,
