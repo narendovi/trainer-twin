@@ -1,0 +1,6 @@
+{"turn": 1, "user_stopped_ms": 17616, "stt_final_ms": 18005, "llm_first_token_ms": 18422, "tts_first_audio_ms": 18762, "interrupted": true}
+{"turn": 2, "user_stopped_ms": 27266, "stt_final_ms": 27692, "llm_first_token_ms": 28080, "tts_first_audio_ms": 28429, "interrupted": true}
+{"turn": 3, "user_stopped_ms": 35856, "stt_final_ms": 36264, "llm_first_token_ms": 38602, "tts_first_audio_ms": 38938, "interrupted": false}
+{"turn": 4, "user_stopped_ms": 48496, "stt_final_ms": 48801, "llm_first_token_ms": 49317, "tts_first_audio_ms": 49663, "interrupted": true}
+{"turn": 5, "user_stopped_ms": 59608, "stt_final_ms": 60031, "llm_first_token_ms": 60544, "tts_first_audio_ms": 60893, "interrupted": false}
+{"turn": 6, "user_stopped_ms": 75128, "stt_final_ms": 75479, "llm_first_token_ms": 75955, "tts_first_audio_ms": 76300, "interrupted": false}

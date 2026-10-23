@@ -46,7 +46,8 @@ FOLLOW_UP = (
     "If the answer was vague, very short or had no example, give a gentle nudge instead, "
     "asking for one concrete example. "
     "Your reply must end with exactly one question, ending in a question mark. "
-    "Do not ask the next main question yet."
+    "Do not ask about the hardest problem, how success was measured, or what they would change, "
+    "because those are later main questions. "
 )
 
 REASK = (

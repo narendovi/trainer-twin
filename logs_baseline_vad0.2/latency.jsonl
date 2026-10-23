@@ -1,0 +1,4 @@
+{"turn": 1, "user_stopped_ms": 39824, "stt_final_ms": 40210, "llm_first_token_ms": 40534, "tts_first_audio_ms": 40880, "interrupted": true}
+{"turn": 2, "user_stopped_ms": 58385, "stt_final_ms": 58795, "llm_first_token_ms": 60805, "tts_first_audio_ms": 61171, "interrupted": false}
+{"turn": 3, "user_stopped_ms": 106025, "stt_final_ms": 106400, "llm_first_token_ms": 106750, "tts_first_audio_ms": 107100, "interrupted": false}
+{"turn": 4, "user_stopped_ms": 154125, "stt_final_ms": 154505, "llm_first_token_ms": 154869, "tts_first_audio_ms": 155222, "interrupted": false}

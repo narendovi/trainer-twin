@@ -1,0 +1,27 @@
+[   7.7s] MAYA: I am Maya, and we will cover four questions before I share my thoughts. Tell me about a project you're proud of.
+[  33.5s] USER: I built a MovieMind
+[  35.7s] USER: a v... AI movie assistant.
+[  36.0s] MAYA: An AI movie assistant sounds like a useful tool. What was the hardest part of building it?  [INTERRUPTED by user]
+[  40.2s] USER: Helps
+[  40.4s] USER: helps you decide what to watch
+[  41.0s] MAYA: That clarifies the core function. What was the hardest technical problem in it?  [INTERRUPTED by user]
+[  43.8s] USER: It uses LangChain with the Groq model.
+[  44.2s] MAYA: Using LangChain with Groq is a solid stack choice. How did you handle cases where the model gave a bad movie recommendation?  [INTERRUPTED by user]
+[  48.0s] USER: Pulls movie
+[  48.2s] USER: details from the OMDb API,
+[  60.6s] USER: and has a Streamlit front end I'm proud of it because it was my first agent project and I took it from idea to a working app on my own.
+[  66.4s] MAYA: Taking it from idea to a working app is a big win. How did you know it was working well?
+[  96.5s] USER: I designed the agent flow myself.
+[  96.9s] MAYA: Designing the agent flow yourself is a strong skill. What specific logic did you use to decide when to call the OMDb API?  [INTERRUPTED by user]
+[ 102.0s] USER: I used
+[ 102.2s] USER: a tool that calls the OMDb API.
+[ 102.5s] MAYA: That is a clear way to handle the data. What would you do differently now?  [INTERRUPTED by user]
+[ 106.4s] USER: And a database to store the user
+[ 106.6s] USER: preferences.
+[ 113.7s] MAYA: Storing user preferences makes the app much more personal. What was the main trade-off you made when choosing the database?
+[ 146.7s] USER: I designed the agent flow myself.
+[ 147.1s] MAYA: You clearly owned the technical design by building the agent flow and using the OMDb API. Try to be more concise next time by stating your role and one specific result in a single sentence. It was a pleasure practicing with you today.  [INTERRUPTED by user]
+[ 151.8s] USER: I used
+[ 154.5s] USER: a tool that calls OMDb API.
+[ 154.7s] USER: The database to store user preferences.
+[ 158.2s] MAYA: It was a pleasure practicing with you today. Goodbye.

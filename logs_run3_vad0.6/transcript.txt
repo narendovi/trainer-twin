@@ -1,0 +1,17 @@
+[   8.1s] MAYA: Hi, I'm Maya. I will ask four questions and then give brief feedback. Tell me about a project you're proud of.
+[  18.0s] USER: I built a MovieMind on an AI movie assistant that helps you decide what to watch
+[  18.3s] MAYA: I like the specific name MovieMind. What was the main feature that made it stand out from other apps?  [INTERRUPTED by user]
+[  21.4s] USER: It uses LangChain with the Groq model.
+[  21.6s] MAYA: That is a solid tech stack choice. What was the hardest technical problem in it?  [INTERRUPTED by user]
+[  24.7s] USER: Movie details from the OMDb API
+[  24.9s] MAYA: Using the OMDb API is a practical choice. How did you handle cases where the API returned incomplete data?  [INTERRUPTED by user]
+[  27.0s] USER: has a Streamlit front end
+[  27.5s] MAYA: Streamlit makes that easy to build. How did you know it was working well?  [INTERRUPTED by user]
+[  35.3s] USER: I'm proud of it because it was my first agent project. Took it from ideas to a working app on my own.
+[  40.1s] MAYA: Building it alone is a big win. What was the first bug that made you want to quit?
+[  59.4s] USER: Robbie, could you please come again?
+[  63.7s] MAYA: That is a valuable lesson. What would you do differently now?
+[  71.9s] USER: I would add automated test from the start instead of testing my hand.
+[  72.1s] MAYA: Automated tests save a lot of time. Which testing framework did you choose?  [INTERRUPTED by user]
+[  78.4s] USER: Would also log every tool call so I could see exactly where the agent went wrong.
+[  88.6s] MAYA: You clearly own your work, which is a strong foundation. Try adding one specific metric or metric-like detail to show impact. Good luck with your next interview.

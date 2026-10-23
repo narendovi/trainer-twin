@@ -26,8 +26,10 @@ from pipecat.turns.user_stop import TurnAnalyzerUserTurnStopStrategy
 from pipecat.turns.user_turn_strategies import UserTurnStrategies
 
 
-from interview import InterviewController
+from interview import InterviewController, attach_state
 from prompts import SYSTEM_PROMPT
+
+from latency import LatencyObserver, attach_transcript
 
 load_dotenv(override=True)
 
@@ -41,7 +43,7 @@ async def bot(runner_args: RunnerArguments):
 
     stt = DeepgramSTTService(
         api_key=os.environ["DEEPGRAM_API_KEY"],
-        settings=DeepgramSTTSettings(model="nova-3", language="en-IN"),
+        settings=DeepgramSTTSettings(model="nova-3", language="en-IN",keyterm=["LangChain", "Groq", "OMDb", "Streamlit", "MovieMind", "Pipecat"],)
     )
     llm = GroqLLMService(
         api_key=os.environ["GROQ_API_KEY"],
@@ -62,7 +64,7 @@ async def bot(runner_args: RunnerArguments):
     user_agg, assistant_agg = LLMContextAggregatorPair(
         context,
          user_params=LLMUserAggregatorParams(
-            vad_analyzer=SileroVADAnalyzer(params=VADParams(stop_secs=0.2)),
+            vad_analyzer=SileroVADAnalyzer(params=VADParams(stop_secs=0.6)),
             user_turn_strategies=UserTurnStrategies(
                 stop=[
                     TurnAnalyzerUserTurnStopStrategy(
@@ -72,20 +74,27 @@ async def bot(runner_args: RunnerArguments):
                     )
                 ]
             ),
+            empty_user_turn=None,
         ),)
+    attach_transcript(user_agg, assistant_agg, "logs/transcript.txt")
+    state = attach_state(assistant_agg)
 
     pipeline = Pipeline([
         transport.input(),
         stt,
         user_agg,
-        InterviewController(),
+        InterviewController(state),
         llm,
         tts,
         transport.output(),
         assistant_agg,
     ])
 
-    task = PipelineTask(pipeline, params=PipelineParams(enable_metrics=True))
+    task = PipelineTask(
+           pipeline,
+           params=PipelineParams(enable_metrics=True),
+           observers=[LatencyObserver("logs/latency.jsonl")],
+    )
 
     @transport.event_handler("on_client_connected")
     async def on_connected(transport, client):

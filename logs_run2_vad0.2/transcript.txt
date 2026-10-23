@@ -1,0 +1,19 @@
+[   9.0s] MAYA: I'm Maya, and we're going to practice with four questions followed by brief feedback. Tell me about a project you're proud of.
+[  18.3s] USER: I built MovieMind, an AI movie assistant that helps you decide to watch.
+[  18.9s] MAYA: That’s a clear concept. What was the hardest technical decision you made while building it?  [INTERRUPTED by user]
+[  22.1s] USER: It uses, LangChain, the Groq model.
+[  22.4s] MAYA: Thanks for the tech stack details. What was the hardest technical problem in it?  [INTERRUPTED by user]
+[  28.0s] USER: Pulls movie details from the OMDb API, and has a Streamlit front end
+[  28.6s] MAYA: Using the OMDb API is a solid choice for data. How did you handle cases where the API returned no results for a search?  [INTERRUPTED by user]
+[  38.5s] USER: I'm proud of it because it was my first agent project and I took it from idea to a working app on my own.
+[  42.7s] MAYA: That’s a real milestone. How did you know it was working well?
+[  49.2s] USER: I designed the agent flow myself
+[  49.8s] MAYA: Designing the flow yourself is a big step. What specific logic did you build to handle user requests?  [INTERRUPTED by user]
+[  56.0s] USER: I used a tool that calls the OMDb API
+[  56.3s] MAYA: That’s a practical approach. What would you do differently now?  [INTERRUPTED by user]
+[  60.3s] USER: and a database to store user preferences
+[  67.3s] MAYA: Storing preferences is a smart way to improve accuracy. How many users have you tested it with so far?
+[  72.1s] USER: I've used it. I've tested with several users.
+[  72.6s] MAYA: You clearly own the technical build, especially the preference database. Next time, try to name your specific role and add one number to show scale. Thanks for practicing with me.  [INTERRUPTED by user]
+[  75.8s] USER: And the outcome is really good and positive.
+[  78.7s] MAYA: Thanks for practicing with me. Goodbye.

@@ -1,0 +1,2 @@
+pipecat-ai[deepgram,groq,silero,webrtc,runner]==1.13.0
+python-dotenv
