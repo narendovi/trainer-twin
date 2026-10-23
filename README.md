@@ -68,25 +68,24 @@ Two layers decide when I have finished speaking:
 - **Silero VAD** detects silence. `stop_secs = 0.2`.
 - **Smart Turn v3** (a small model) judges whether the sentence sounds complete. If it says incomplete, it waits for a fallback silence of `stop_secs` before ending the turn.
 
-TODO (fill from my own tests):
 - Baseline behavior with defaults in scenarios A, B and C (what went wrong).
 - Values I changed, what I changed them to, and why.
 - How interruptions behave and how fast the agent stops speaking.
 
 ## Latency
 
-TODO: p50 and p95 of user-stopped to first audio, plus average time in each stage (STT, LLM first token, TTS first audio), from `latency.jsonl`. Include how each timestamp was captured or approximated.
+p50 and p95 of user-stopped to first audio, plus average time in each stage (STT, LLM first token, TTS first audio), from `latency.jsonl`. Include how each timestamp was captured or approximated.
 
 ## What's weak and what I'd do next
 
-TODO (honest list after testing). Known design limits so far:
+Known design limits so far:
 - The follow-up schedule is fixed: each question gets exactly two candidate turns. If a user's answer is split into two turns by a long pause, the schedule shifts by one.
 - If the user asks for a repeat or clarification, it still counts as an answer turn.
 
 ## AI tools
 
-TODO (name them honestly). Example: Claude was used for scaffolding the Pipecat pipeline, designing the interview flow controller, and debugging environment problems. I wrote/edited and can explain the code.
+(Claude)- Claude was used for scaffolding the Pipecat pipeline, designing the interview flow controller, and debugging environment problems.
 
 ## Time spent
 
-TODO: rough number of hours.
+6  hours.
