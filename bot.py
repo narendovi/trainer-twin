@@ -53,6 +53,7 @@ async def bot(runner_args: RunnerArguments):
             system_instruction=SYSTEM_PROMPT,
             temperature=0.5,
             max_tokens=300,
+            extra={"extra_body": {"reasoning_format": "hidden"}},
         ),
     )
     tts = DeepgramTTSService(
